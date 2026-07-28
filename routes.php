@@ -41,6 +41,8 @@ $app->group('', function (RouteCollectorProxy $group)
 	// Login routes
 	$group->get('/login', [LoginController::class, 'LoginPage'])->setName('login');
 	$group->post('/login', [LoginController::class, 'ProcessLogin'])->setName('login');
+	$group->get('/login/microsoft', [LoginController::class, 'MicrosoftLogin']);
+	$group->get('/login/microsoft/callback', [LoginController::class, 'MicrosoftCallback']);
 	$group->get('/logout', [LoginController::class, 'Logout']);
 
 	// Generic entity interaction

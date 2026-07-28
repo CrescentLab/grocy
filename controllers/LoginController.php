@@ -39,4 +39,33 @@ class LoginController extends BaseController
 			return $response->withRedirect($this->AppContainer->get('UrlManager')->ConstructUrl('/login?invalid=true'));
 		}
 	}
+
+	public function MicrosoftLogin(Request $request, Response $response, array $args)
+	{
+		if (!defined('GROCY_MICROSOFT_AUTH_ENABLED') || GROCY_MICROSOFT_AUTH_ENABLED !== true)
+		{
+			return $response->withRedirect($this->AppContainer->get('UrlManager')->ConstructUrl('/login'));
+		}
+
+		return $response->withRedirect(\Grocy\Middleware\MicrosoftAuthMiddleware::BeginLogin());
+	}
+
+	public function MicrosoftCallback(Request $request, Response $response, array $args)
+	{
+		$query = $request->getQueryParams();
+		if (!isset($query['code'], $query['state']))
+		{
+			return $response->withRedirect($this->AppContainer->get('UrlManager')->ConstructUrl('/login?invalid=true'));
+		}
+
+		try
+		{
+			\Grocy\Middleware\MicrosoftAuthMiddleware::FinishLogin($query['code'], $query['state']);
+			return $response->withRedirect($this->AppContainer->get('UrlManager')->ConstructUrl('/'));
+		}
+		catch (\Exception $ex)
+		{
+			return $response->withRedirect($this->AppContainer->get('UrlManager')->ConstructUrl('/login?invalid=true'));
+		}
+	}
 }

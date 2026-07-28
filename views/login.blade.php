@@ -57,6 +57,14 @@
 			<button id="login-button"
 				class="btn btn-success">{{ $__t('OK') }}</button>
 
+			@if (defined('GROCY_MICROSOFT_AUTH_ENABLED') && GROCY_MICROSOFT_AUTH_ENABLED === true)
+			<div class="mt-3">
+				<a href="{{ $U('/login/microsoft') }}" class="btn btn-outline-primary btn-block">
+					<i class="fa-brands fa-microsoft"></i> Sign in with Microsoft
+				</a>
+			</div>
+			@endif
+
 		</form>
 	</div>
 </div>

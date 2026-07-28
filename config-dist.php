@@ -101,6 +101,14 @@ Setting('LDAP_BIND_PW', ''); // Password for the above account
 Setting('LDAP_USER_FILTER', ''); // Example value "(OU=grocy_users)"
 Setting('LDAP_UID_ATTR', ''); // Windows AD: "sAMAccountName", OpenLDAP: "uid", GLAuth: "cn"
 
+// Microsoft Entra ID login settings
+Setting('MICROSOFT_AUTH_ENABLED', false);
+Setting('MICROSOFT_AUTH_TENANT_ID', '');
+Setting('MICROSOFT_AUTH_CLIENT_ID', '');
+Setting('MICROSOFT_AUTH_CLIENT_SECRET', '');
+Setting('MICROSOFT_AUTH_SCOPES', 'openid profile email');
+Setting('MICROSOFT_AUTH_REDIRECT_URI', '');
+
 // Default permissions for new users
 // the array needs to contain the technical/constant names
 // See the file controllers/Users/User.php for possible values
